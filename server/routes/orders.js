@@ -6,30 +6,30 @@ const { authenticateToken, isAdmin } = require('./auth');
 
 router.post('/', async (req, res) => {
   try {
-    console.log('Запрос на создание заказа:', req.body);
+    console.log('Request to create an order:', req.body);
     const { fullName, address, phone, paymentMethod, items, totalAmount } = req.body;
     
 
     if (!fullName || !address || !phone || !paymentMethod || !items || !totalAmount) {
-      console.error('Отсутствуют необходимые данные для создания заказа', { 
+      console.error('The required data to create an order is missing', { 
         fullName, address, phone, paymentMethod, 
         itemsExist: !!items, 
         totalAmount 
       });
-      return res.status(400).json({ message: 'Все поля обязательны для заполнения' });
+      return res.status(400).json({ message: 'All fields are required' });
     }
     
 
     if (!Array.isArray(items) || items.length === 0) {
-      console.error('Некорректный список товаров', items);
-      return res.status(400).json({ message: 'Корзина пуста' });
+      console.error('Incorrect list of products', items);
+      return res.status(400).json({ message: 'Empty' });
     }
     
-    console.log('Количество товаров в заказе:', items.length);
+    console.log('Number of items in the order:', items.length);
     
 
     const userId = req.user ? req.user.id : null;
-    console.log('ID пользователя:', userId);
+    console.log('user ID:', userId);
     
 
     const connection = await pool.getConnection();
@@ -43,11 +43,11 @@ router.post('/', async (req, res) => {
       );
       
       const orderId = orderResult.insertId;
-      console.log('Создан заказ с ID:', orderId);
+      console.log('Order with ID created:', orderId);
       
 
       for (const item of items) {
-        console.log('Добавление товара в заказ:', item);
+        console.log('Adding a product to an order:', item);
         await connection.query(
           'INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
           [orderId, item.id, item.quantity, item.price]
@@ -62,23 +62,23 @@ router.post('/', async (req, res) => {
       
 
       await connection.commit();
-      console.log('Заказ успешно создан с ID:', orderId);
+      console.log('Order successfully created with ID:', orderId);
       
       res.status(201).json({
-        message: 'Заказ успешно создан',
+        message: 'Order created successfully',
         orderId
       });
     } catch (error) {
 
       await connection.rollback();
-      console.error('Ошибка при создании заказа (транзакция отменена):', error);
+      console.error('Error creating order (transaction cancelled):', error);
       throw error;
     } finally {
       connection.release();
     }
   } catch (error) {
-    console.error('Ошибка при создании заказа:', error);
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    console.error('Error when creating an order:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -121,7 +121,7 @@ router.get('/', authenticateToken, isAdmin, async (req, res) => {
       );
       
       order.items = items;
-      console.log(`Заказ #${order.id}: найдено ${items.length} товаров`);
+      console.log(`Заказ #${order.id}: found ${items.length} товаров`);
     }
     
     res.json({
@@ -134,7 +134,6 @@ router.get('/', authenticateToken, isAdmin, async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Ошибка при получении заказов:', error);
     res.status(500).json({ message: 'Ошибка сервера', error: error.message });
   }
 });
@@ -177,7 +176,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
     
     res.json({ order });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -201,12 +200,12 @@ router.put('/:id/status', authenticateToken, isAdmin, async (req, res) => {
     );
     
     res.json({ 
-      message: 'Статус заказа успешно обновлен',
+      message: 'Order status updated successfully',
       orderId,
       status
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -249,7 +248,7 @@ router.get('/stats/summary', authenticateToken, isAdmin, async (req, res) => {
       popularProducts
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
