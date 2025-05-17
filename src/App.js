@@ -196,7 +196,6 @@ function App() {
       </header>
 
       <main className="content">
-        {/* Wyświetlanie listy produktów, jeśli nie wybrano konkretnego laptopa i nie otwarto płatności */}
         {!selectedLaptop && !showPayment && (
           <>
             {loading ? (
@@ -228,7 +227,6 @@ function App() {
           </>
         )}
 
-        {/* Strona szczegółowa produktu */}
         {selectedLaptop && !showPayment && (
           <div className="laptop-details">
             <button className="back-btn" onClick={closeLaptopDetails}>← Wstecz</button>
@@ -254,7 +252,6 @@ function App() {
           </div>
         )}
 
-        {/* Strona płatności */}
         {showPayment && (
           <div className="payment-page">
             <button className="back-btn" onClick={() => setShowPayment(false)}>← Wróć do koszyka</button>
