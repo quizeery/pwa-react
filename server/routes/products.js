@@ -31,7 +31,7 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -47,12 +47,12 @@ router.get('/:id', async (req, res) => {
     );
     
     if (products.length === 0) {
-      return res.status(404).json({ message: 'Продукт не найден' });
+      return res.status(404).json({ message: 'Product not found' });
     }
     
     res.json({ product: products[0] });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -63,7 +63,7 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
     
 
     if (!name || !price || !image || !specs) {
-      return res.status(400).json({ message: 'Все поля обязательны для заполнения' });
+      return res.status(400).json({ message: 'All fields are required' });
     }
     
 
@@ -73,11 +73,11 @@ router.post('/', authenticateToken, isAdmin, async (req, res) => {
     );
     
     res.status(201).json({
-      message: 'Продукт успешно создан',
+      message: 'Product successfully created',
       productId: result.insertId
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -94,7 +94,7 @@ router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
     );
     
     if (products.length === 0) {
-      return res.status(404).json({ message: 'Продукт не найден' });
+      return res.status(404).json({ message: 'Product not found' });
     }
     
 
@@ -104,11 +104,11 @@ router.put('/:id', authenticateToken, isAdmin, async (req, res) => {
     );
     
     res.json({ 
-      message: 'Продукт успешно обновлен',
+      message: 'Product updated successfully',
       productId
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
@@ -124,18 +124,18 @@ router.delete('/:id', authenticateToken, isAdmin, async (req, res) => {
     );
     
     if (products.length === 0) {
-      return res.status(404).json({ message: 'Продукт не найден' });
+      return res.status(404).json({ message: 'Product not found' });
     }
     
 
     await pool.query('DELETE FROM products WHERE id = ?', [productId]);
     
     res.json({ 
-      message: 'Продукт успешно удален',
+      message: 'Product removed successfully',
       productId
     });
   } catch (error) {
-    res.status(500).json({ message: 'Ошибка сервера', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
