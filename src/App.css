@@ -46,7 +46,6 @@
   background-color: #f5f5f5;
 }
 
-/* Сетка для отображения ноутбуков */
 .laptop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -54,7 +53,6 @@
   margin-bottom: 2rem;
 }
 
-/* Карточка товара */
 .laptop-card {
   border-radius: 8px;
   background-color: white;
@@ -136,7 +134,6 @@
   margin-top: 1rem;
 }
 
-/* Детали товара */
 .laptop-details {
   background-color: white;
   border-radius: 8px;
@@ -195,7 +192,6 @@
   text-decoration: underline;
 }
 
-/* Корзина */
 .cart-panel {
   background-color: white;
   padding: 1.5rem;
@@ -237,7 +233,6 @@
   color: #666;
 }
 
-/* Кнопка удаления товара из корзины */
 .remove-btn {
   background-color: #f44336;
   color: white;
@@ -282,7 +277,6 @@
   background-color: #45a049;
 }
 
-/* Форма оплаты */
 .payment-page {
   background-color: white;
   border-radius: 8px;
@@ -328,7 +322,6 @@
   background-color: #45a049;
 }
 
-/* PWA компоненты */
 .offline-notice {
   background-color: #f39c12;
   color: white;
@@ -353,7 +346,6 @@
   background-color: #2a6496;
 }
 
-/* Стиль для кнопки входа в админ-панель */
 .admin-button {
   background-color: #444857;
   color: white;
@@ -374,7 +366,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Индикаторы загрузки и сообщения */
 .loading {
   text-align: center;
   padding: 2rem;
@@ -401,7 +392,6 @@
   margin: 1rem 0;
 }
 
-/* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .laptop-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
