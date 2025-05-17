@@ -1,6 +1,7 @@
-# Admin Dashboard
+# PWA React Laptop Store
 
-A modern administrative dashboard built with React, featuring a clean and intuitive user interface for managing administrative tasks.
+This is a sample Progressive Web App (PWA) built with React.  
+The project simulates an online laptop store and serves as a demonstration of PWA capabilities — including installation prompts, offline support, and app-like behavior.
 
 ## Features
 
